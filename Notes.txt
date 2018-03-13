@@ -1,0 +1,109 @@
+
+
+#Distributed Systems in Go
+#
+https://www.gopherguides.com/courses/oreilly-dist-systems-march-2018/modules/distributed-systems-protocols-module#slide-7
+
+# Protocol buffers in Go
+#
+https://developers.google.com/protocol-buffers/docs/gotutorial
+
+Google's language-neutral, extensible mechanism for serializing structured data
+
+# protocol buffer compiler
+#
+https://github.com/google/protobuf/releases
+
+# Need plugin to create Go Code
+#
+
+$ go get -u github.com/gogo/protobuf/proto
+$ go get -u github.com/gogo/protobuf/protoc-gen-gogo
+$ go get -u github.com/gogo/protobuf/gogoproto
+
+A file called person.proto results in an output file called person.pb.go.
+When you run the proto compiler like this:
+$ protoc --gogo_out=tutorial person.proto
+The compiler will produce a new file, tutorial/person.pb.go.
+The compiler automatically creates any needed sub-directories if necessary,
+but it will not create any top level directories, in this case the tutorial
+directory.
+
+If you want to automatically generate your proto files with go generate,
+you can add this directive in one of the go files in the directory that
+contains the proto files:
+
+//go:generate protoc --gogo_out=. your_proto_file.proto
+
+To make the definition private by using the internal package name:
+
+//go:generate protoc --gogo_out=. internal/your_proto_file.proto
+
+It's common to put this directive in an empty file called generate.go
+
+If generating the protobuf code is failing for you, check each of the following:
+Ensure the protobuf library can be found. Make sure that LD_LIBRRARY_PATH
+includes the directory in which the library libprotoc.so has been installed.
+Ensure the command protoc-gen-gogo, found in GOPATH/bin, is in your $PATH.
+This can be done by adding $GOPATH/bin to $PATH.
+You may be trying to use a well-known type and haven't installed support
+locally for it. Use go get -u github.com/golang/protobuf/... to ensure
+it's downloaded.
+
+
+
+
+Protobufs comes with a set of "predefined types".
+You can import these types using the import directive.
+import "google/protobuf/timestamp.proto";
+
+message NamedStruct {
+	string name = 1;
+	google.protobuf.Timestamp last_modified = 2;
+}
+ $ go get -u -v github.com/golang/protobuf/...
+https://developers.google.com/protocol-buffers/docs/reference/google.protobuf
+
+
+Field Tags (Numbers)
+Each field in the message definition has a unique numbered tag. These tags
+are used to identify your fields in the message binary format, and should
+NOT be changed once your message type is in use.
+
+Message fields can be one of the following:
+singular: a well-formed message can have zero or one of this field
+(but not more than one).
+repeated: this field can be repeated any number of times (including zero)
+in a well-formed message. The order of the repeated values will be preserved.
+
+Map Fields
+Each map field generates a field in the struct of type map[TKey]TValue where TKey is the field's key type and TValue is the field's value type.
+// baz.proto
+message Bar {}
+
+message Baz {
+  map<string, Bar> foo = 1;
+}
+// baz.pb.go
+type Baz struct {
+  Foo map[string]*Bar
+}
+
+
+Prior to proto3, you could use the optional and required syntax to define
+
+optional int32 foo = 1;
+required int32 foo = 1;
+
+Initially the optional and required directives seemed to make sense, but as
+projects evolved, it began to create cruft for fields that were originally
+defined as required... and then one day they weren't.
+
+## References
+##
+A number of these slides contain content copied directly from the following resources:
+https://developers.google.com/protocol-buffers/docs/reference/go-generated
+https://github.com/google/protobuf
+https://developers.google.com/protocol-buffers/docs/gotutorial
+https://godoc.org/github.com/golang/protobuf/proto
+https://developers.google.com/protocol-buffers/
