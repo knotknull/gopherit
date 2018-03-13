@@ -1,0 +1,21 @@
+{
+  "firstName": "Homer",
+  "lastName": "Simpson",
+  "isAlive": true,
+  "age": 25,
+  "address": {
+    "streetAddress": "742 Evergreen Terrace",
+    "city": "Springfield",
+    "state": "ZY",
+    "postalCode": "09876"
+  },
+  "phoneNumbers": [{
+    "type": "home",
+    "number": "212 555-1234"
+  }, {
+    "type": "mobile",
+    "number": "123 456-7890"
+  }],
+  "children": [],
+  "spouse": null
+}

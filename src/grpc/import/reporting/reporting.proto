@@ -1,0 +1,9 @@
+syntax = "proto3";
+package reporting;
+import "github.com/gopherguides/training/distributed-systems/grpc/src/import/codes/codes.proto";
+
+message Report {
+	codes.Code Code = 1;
+	string Message = 2;
+}
+
