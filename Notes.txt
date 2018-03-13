@@ -107,3 +107,16 @@ https://github.com/google/protobuf
 https://developers.google.com/protocol-buffers/docs/gotutorial
 https://godoc.org/github.com/golang/protobuf/proto
 https://developers.google.com/protocol-buffers/
+
+
+## Go Resources
+##
+Go Support
+[Docs]
+https://golang.org The official Go site has a lot of great articles, tutorials, and "mini"-books on Go.
+https://godoc.org has literally all of the GoDoc's for every published package out there. It's an amazing resource.
+[Slack]
+The Slack group gophers.slack.com is great place to ask for help from a variety of Gophers,
+including members of the Go team.
+To get a free invite to the group, fill out this form: https://invite.slack.golangbridge.org/
+
